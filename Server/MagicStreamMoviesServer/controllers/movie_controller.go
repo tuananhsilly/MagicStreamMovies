@@ -29,13 +29,46 @@ func GetMovies() gin.HandlerFunc {
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch movies"})
+			return
 		}
 		defer cursor.Close(ctx) //for memory management, close the cursor after the function is done
 
 		if err = cursor.All(ctx, &movies); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to decode movies"})
+			return
 		}
 		
 		c.JSON(http.StatusOK, movies)
 	}
 }
+
+func GetMovie() gin.HandlerFunc { //easy to map a HTTP endpoint route to the relative HTTP endpoint handler function
+	// also easy to create HTTP responses from within the relevant handler function
+	return func(c *gin.Context){
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second) //ctx is the context object carry the timeoutlled context.Background() is the parent context, 100*time.Second is the timeout duration
+		defer cancel() //defer delay the execution of the function until the context is cancelled or the timeout is reached
+
+
+		//use c to read a parameter from the HTTP request
+		// map the parameter to the movie struct
+		
+		movieID := c.Param("imdb_id") // := is used to declare and assign a variable in one go
+		
+		if movieID == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Movie ID is required"})
+			return
+		}
+
+		var movie models.Movie
+
+		err := movieCollection.FindOne(ctx, bson.M{"imdb_id": movieID}).Decode(&movie)
+
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Failed to fetch movie"})
+			return
+		}
+
+		c.JSON(http.StatusOK, movie)
+	}
+}
+
