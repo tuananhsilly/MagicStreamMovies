@@ -9,12 +9,15 @@ import(
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"net/http"
+	"github.com/go-playground/validator/v10" //validate the movie data from the request body
 )
 
 //return a collection of movies queried by the user to the client side 
 //want the func to be exportable 
 
 var movieCollection *mongo.Collection = database.OpenCollection("movies")
+
+var validate = validator.New() //validate is a pointer to the validator package
 
 func GetMovies() gin.HandlerFunc {
 	return func(c *gin.Context){     //how we are hooking to the gin framework
@@ -72,3 +75,31 @@ func GetMovie() gin.HandlerFunc { //easy to map a HTTP endpoint route to the rel
 	}
 }
 
+func AddMovie() gin.HandlerFunc {
+	return func(c *gin.Context){
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		var movie models.Movie // store the movie data from the request body passing from client 
+
+		// bind the movie data from the request body to the movie struct
+		if err := c.ShouldBindJSON(&movie); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+			return
+		}
+		if err := validate.Struct(movie); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Validation error", "details": err.Error()})
+			return // stop the function from executing further
+		}
+
+		//insert the movie data into the database
+		result, err := movieCollection.InsertOne(ctx, movie)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to insert movie"})
+			return 
+		}
+
+		c.JSON(http.StatusCreated, gin.H{"message": "Movie added successfully", "data": result})
+	}
+}
