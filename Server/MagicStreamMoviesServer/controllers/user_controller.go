@@ -95,7 +95,7 @@ func LoginUser() gin.HandlerFunc {
 
 		var foundUser models.User
 
-		err := userCollection.FindOne(ctx, bson.M{"email", userLogin.Email})
+		err := userCollection.FindOne(ctx, bson.M{"email": userLogin.Email}).Decode(&foundUser)
 
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
