@@ -2,25 +2,22 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	controllers "github.com/tuananhsilly/MagicStreamMovies/Server/MagicStreamMoviesServer/controllers"
 
+	"github.com/gin-gonic/gin"
+	routes "github.com/tuananhsilly/MagicStreamMovies/Server/MagicStreamMoviesServer/routes"
 )
 
-func main(){
+func main() {
 	router := gin.Default()
 
-	router.GET("/hello", func(c *gin.Context){
-		c.String(200, "Hello, MagicStreamMoviesServer!")  
+	router.GET("/hello", func(c *gin.Context) {
+		c.String(200, "Hello, MagicStreamMoviesServer!")
 	})
 
-	router.GET("/movies", controllers.GetMovies())
-	router.GET("/movie/:imdb_id", controllers.GetMovie())
-	router.POST("/addmovie", controllers.AddMovie())
-	router.POST("/register", controllers.RegisterUser())
-	router.POST("/login", controllers.LoginUser())
-
 	//Facilitation of separating our HTTP endpoints into protected(requires authentication) and unprotected(does not require authentication) endpoints
+
+	routes.SetupProtectedRoutes(router)
+	routes.SetupUnprotectedRoutes(router)
 
 	if err := router.Run(":8080"); err != nil {
 		fmt.Println("Error starting server: ", err)

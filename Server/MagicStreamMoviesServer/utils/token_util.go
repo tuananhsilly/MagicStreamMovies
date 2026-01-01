@@ -106,11 +106,18 @@ func GetAcccessToken (c *gin.Context) (string, error){
 	if authHeader == "" {
 		return "", errors.New("authorization header is required")
 	}
-	tokenString := authHeader[len("Bearer "):]
+	// Check if header starts with "Bearer "
+	const bearerPrefix = "Bearer "
+	if len(authHeader) < len(bearerPrefix) || authHeader[:len(bearerPrefix)] != bearerPrefix {
+		return "", errors.New("authorization header must start with 'Bearer '")
+	}
+	// Extract the token string after "Bearer "
+	tokenString := authHeader[len(bearerPrefix):]
 
 	if tokenString == "" {
 		return "", errors.New("Bearer token is required")
 	}
+
 
 	return tokenString, nil
 } 
