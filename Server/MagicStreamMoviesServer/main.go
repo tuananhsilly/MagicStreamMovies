@@ -20,6 +20,8 @@ func main(){
 	router.POST("/register", controllers.RegisterUser())
 	router.POST("/login", controllers.LoginUser())
 
+	//Facilitation of separating our HTTP endpoints into protected(requires authentication) and unprotected(does not require authentication) endpoints
+
 	if err := router.Run(":8080"); err != nil {
 		fmt.Println("Error starting server: ", err)
 	}

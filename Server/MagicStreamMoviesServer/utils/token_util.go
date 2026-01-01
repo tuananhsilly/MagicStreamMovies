@@ -1,6 +1,7 @@
 package utils
 
 import(
+	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"github.com/tuananhsilly/MagicStreamMovies/Server/MagicStreamMoviesServer/database"
@@ -8,7 +9,7 @@ import(
 	"os"
 	"time"
 	"context"
-
+	"errors"
 )
 
 type SignedDetails struct { //this is the struct that is used to store the signed details of the JWT
@@ -97,4 +98,50 @@ func UpdateAllTokens(userId, token, refreshToken string)(err error) {
 		return err 
 	}
 	return nil
+}
+
+
+func GetAcccessToken (c *gin.Context) (string, error){
+	authHeader := c.Request.Header.Get("Authorization")
+	if authHeader == "" {
+		return "", errors.New("authorization header is required")
+	}
+	tokenString := authHeader[len("Bearer "):]
+
+	if tokenString == "" {
+		return "", errors.New("Bearer token is required")
+	}
+
+	return tokenString, nil
+} 
+
+func ValidateToken(tokenString string) (*SignedDetails, error) {
+	claims := &SignedDetails{} // the struct that embeds or extends the RegisteredClaims struct
+	//where the token claims will be decoded into 
+	 
+
+	// This use jwt.ParseWithClaims to parse the token and decode the claims into the SignedDetails struct
+	//use a callback function to verify the token signature
+	//return as the byte slice of the secret key
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SECRET_KEY), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+
+	//check that the signed algorithm is the same as the algorithm used to sign the token
+	//A critical security check to prevent token tampering
+	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+		return nil, err
+	}
+
+	//check that the token has not expired
+	if claims.ExpiresAt.Time.Before(time.Now()) {
+		return nil, errors.New("token has expired")
+	}
+
+	return claims, nil
+
 }
