@@ -1,0 +1,114 @@
+.movie-detail-page {
+  min-height: calc(100vh - 80px);
+  padding: 3rem 2rem;
+}
+
+.movie-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 3rem;
+}
+
+.movie-poster {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.movie-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.movie-info {
+  color: #fff;
+}
+
+.movie-title {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.movie-rating-large {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.movie-rating-large .stars {
+  color: #ffd700;
+  font-size: 1.5rem;
+}
+
+.movie-rating-large .rating-text {
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.movie-genres-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.genre-tag-large {
+  background-color: #e50914;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.movie-review {
+  margin-bottom: 3rem;
+}
+
+.movie-review h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #e50914;
+}
+
+.movie-review p {
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+.movie-trailer h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #e50914;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .movie-detail-container {
+    grid-template-columns: 1fr;
+  }
+
+  .movie-title {
+    font-size: 2rem;
+  }
+}

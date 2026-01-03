@@ -1,0 +1,108 @@
+.add-movie-page {
+  min-height: calc(100vh - 80px);
+  padding: 3rem 0;
+}
+
+.add-movie-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #1f1f1f;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.add-movie-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.add-movie-form label {
+  display: block;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.add-movie-form input,
+.add-movie-form select,
+.add-movie-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.add-movie-form input:focus,
+.add-movie-form select:focus,
+.add-movie-form textarea:focus {
+  outline: none;
+  border-color: #e50914;
+}
+
+.add-movie-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.add-movie-form .genre-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.add-movie-form .genre-btn {
+  padding: 0.5rem 1rem;
+  background-color: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-movie-form .genre-btn:hover {
+  border-color: #e50914;
+}
+
+.add-movie-form .genre-btn.selected {
+  background-color: #e50914;
+  border-color: #e50914;
+}
+
+.add-movie-form .btn-submit {
+  width: 100%;
+  padding: 1rem;
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.add-movie-form .btn-submit:hover:not(:disabled) {
+  background-color: #f40612;
+}
+
+.add-movie-form .btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-movie-form .error-message {
+  background-color: rgba(229, 9, 20, 0.2);
+  border: 1px solid #e50914;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
