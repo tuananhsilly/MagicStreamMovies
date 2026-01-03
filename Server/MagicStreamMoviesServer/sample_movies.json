@@ -1,0 +1,123 @@
+[
+  {
+    "imdb_id": "tt0111161",
+    "title": "The Shawshank Redemption",
+    "poster_path": "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+    "youtube_id": "6hB3S9bIaco",
+    "genre": [
+      { "genre_id": 3, "genre_name": "Drama" },
+      { "genre_id": 7, "genre_name": "Crime" }
+    ],
+    "admin_review": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency. A masterpiece of storytelling.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0468569",
+    "title": "The Dark Knight",
+    "poster_path": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "youtube_id": "EXeTwQWrcwY",
+    "genre": [
+      { "genre_id": 1, "genre_name": "Action" },
+      { "genre_id": 7, "genre_name": "Crime" },
+      { "genre_id": 3, "genre_name": "Drama" }
+    ],
+    "admin_review": "When the menace known as the Joker wreaks havoc on Gotham, Batman must face one of the greatest psychological tests. Heath Ledger's iconic performance.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0137523",
+    "title": "Fight Club",
+    "poster_path": "https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+    "youtube_id": "BdJKm16Co6M",
+    "genre": [
+      { "genre_id": 3, "genre_name": "Drama" },
+      { "genre_id": 7, "genre_name": "Thriller" }
+    ],
+    "admin_review": "An insomniac office worker and a devil-may-care soap maker form an underground fight club. A mind-bending journey with an unforgettable twist.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0109830",
+    "title": "Forrest Gump",
+    "poster_path": "https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
+    "youtube_id": "bLvqoHBptjg",
+    "genre": [
+      { "genre_id": 3, "genre_name": "Drama" },
+      { "genre_id": 5, "genre_name": "Romance" }
+    ],
+    "admin_review": "The presidencies of Kennedy and Johnson, the Vietnam War, and other historical events unfold from the perspective of an Alabama man. Tom Hanks at his best.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0816692",
+    "title": "Interstellar",
+    "poster_path": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "youtube_id": "zSWdZVtXT7E",
+    "genre": [
+      { "genre_id": 6, "genre_name": "Sci-Fi" },
+      { "genre_id": 3, "genre_name": "Drama" }
+    ],
+    "admin_review": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival. Stunning visuals and emotional storytelling.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0076759",
+    "title": "Star Wars: Episode IV - A New Hope",
+    "poster_path": "https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg",
+    "youtube_id": "vZ734NWnAHA",
+    "genre": [
+      { "genre_id": 1, "genre_name": "Action" },
+      { "genre_id": 6, "genre_name": "Sci-Fi" }
+    ],
+    "admin_review": "Luke Skywalker joins forces with a Jedi Knight to rescue a rebel leader and save the galaxy. The movie that started it all!",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0133093",
+    "title": "The Matrix",
+    "poster_path": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "youtube_id": "vKQi3bBA1y8",
+    "genre": [
+      { "genre_id": 1, "genre_name": "Action" },
+      { "genre_id": 6, "genre_name": "Sci-Fi" }
+    ],
+    "admin_review": "A hacker discovers that reality is not what it seems. Revolutionary special effects and mind-bending philosophy.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  },
+  {
+    "imdb_id": "tt0120737",
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "poster_path": "https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "youtube_id": "V75dMMIW2B4",
+    "genre": [
+      { "genre_id": 1, "genre_name": "Action" },
+      { "genre_id": 3, "genre_name": "Drama" }
+    ],
+    "admin_review": "A meek Hobbit and his companions set out to destroy a powerful ring. Epic fantasy at its finest.",
+    "ranking": {
+      "ranking_value": 1,
+      "ranking_name": "excellent"
+    }
+  }
+]
