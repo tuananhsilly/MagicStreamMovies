@@ -15,7 +15,7 @@ import(
 	"github.com/tuananhsilly/MagicStreamMovies/Server/MagicStreamMoviesServer/database"
 )
 
-var userCollection *mongo.Collection = database.OpenCollection("users")
+
 
 //basic structure for creating the user endpoint handler function
 
@@ -28,7 +28,7 @@ func HashPassword(password string) (string, error) {
 }
 
 
-func RegisterUser() gin.HandlerFunc {
+func RegisterUser(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context){
 		var user models.User
 
@@ -57,6 +57,8 @@ func RegisterUser() gin.HandlerFunc {
 
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
+
+		var userCollection *mongo.Collection = database.OpenCollection("users", client)
 
 		//each user have a validate email address
 		//count how many users have the same email address
@@ -91,7 +93,7 @@ func RegisterUser() gin.HandlerFunc {
 
 }
 
-func LoginUser() gin.HandlerFunc {
+func LoginUser(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context){
 		var userLogin models.UserLogin
 		if err := c.ShouldBindJSON(&userLogin); err != nil {
@@ -103,6 +105,7 @@ func LoginUser() gin.HandlerFunc {
 		defer cancel()
 
 		var foundUser models.User
+		var userCollection *mongo.Collection = database.OpenCollection("users", client)
 
 		err := userCollection.FindOne(ctx, bson.M{"email": userLogin.Email}).Decode(&foundUser)
 		if err != nil {
@@ -132,7 +135,7 @@ func LoginUser() gin.HandlerFunc {
 		}
 
 		//update the user document in the database with the new token and refresh token
-		err = utils.UpdateAllTokens(foundUser.UserID, token, refreshToken)
+		err = utils.UpdateAllTokens(foundUser.UserID, token, refreshToken, client)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update tokens"})
 			return

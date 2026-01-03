@@ -13,7 +13,7 @@ import(
 
 //connect the Gin framework to the database
 
-func DBInstance() *mongo.Client {
+func Connect() *mongo.Client {
 	//load the environment variables from the .env file
 	err := godotenv.Load(".env")
 
@@ -42,11 +42,10 @@ func DBInstance() *mongo.Client {
 	return client
 }
 
-var Client *mongo.Client = DBInstance()
 
 //want to create a function that will be used to open the actual connection to the database
 
-func OpenCollection (collectionName string) *mongo.Collection {
+func OpenCollection (collectionName string, client *mongo.Client) *mongo.Collection {
 	err := godotenv.Load(".env")
 
 	if err != nil{
@@ -58,7 +57,7 @@ func OpenCollection (collectionName string) *mongo.Collection {
 
 	fmt.Println("Database name: ", databaseName)
 
-	collection := Client.Database(databaseName).Collection(collectionName)
+	collection := client.Database(databaseName).Collection(collectionName)
 
 	if collection == nil {
 		log.Println("Collection not found")
