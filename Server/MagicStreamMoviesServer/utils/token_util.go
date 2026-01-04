@@ -104,20 +104,28 @@ func UpdateAllTokens(userId, token, refreshToken string, client *mongo.Client) (
 }
 
 func GetAcccessToken(c *gin.Context) (string, error) {
-	authHeader := c.Request.Header.Get("Authorization")
-	if authHeader == "" {
-		return "", errors.New("authorization header is required")
-	}
-	// Check if header starts with "Bearer "
-	const bearerPrefix = "Bearer "
-	if len(authHeader) < len(bearerPrefix) || authHeader[:len(bearerPrefix)] != bearerPrefix {
-		return "", errors.New("authorization header must start with 'Bearer '")
-	}
-	// Extract the token string after "Bearer "
-	tokenString := authHeader[len(bearerPrefix):]
+	// authHeader := c.Request.Header.Get("Authorization")
+	// if authHeader == "" {
+	// 	return "", errors.New("authorization header is required")
+	// }
+	// // Check if header starts with "Bearer "
+	// const bearerPrefix = "Bearer "
+	// if len(authHeader) < len(bearerPrefix) || authHeader[:len(bearerPrefix)] != bearerPrefix {
+	// 	return "", errors.New("authorization header must start with 'Bearer '")
+	// }
+	// // Extract the token string after "Bearer "
+	// tokenString := authHeader[len(bearerPrefix):]
 
-	if tokenString == "" {
-		return "", errors.New("Bearer token is required")
+	// if tokenString == "" {
+	// 	return "", errors.New("Bearer token is required")
+	// }
+
+	// return tokenString, nil
+
+	tokenString, err := c.Cookie("access_token")
+	if err != nil {
+
+		return "", err
 	}
 
 	return tokenString, nil
@@ -182,4 +190,26 @@ func GetRoleFromContext(c *gin.Context) (string, error) {
 
 	return memberRole, nil
 
+}
+
+func ValidateRefreshToken(tokenString string) (*SignedDetails, error) {
+	claims := &SignedDetails{}
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+
+		return []byte(REFRESH_SECRET_KEY), nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+		return nil, err
+	}
+
+	if claims.ExpiresAt.Time.Before(time.Now()) {
+		return nil, errors.New("refresh token has expired")
+	}
+
+	return claims, nil
 }
